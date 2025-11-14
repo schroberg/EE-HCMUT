@@ -1,0 +1,127 @@
+#include <stdio.h>
+void nhapMaTran(int x[100][100],int m,int n)
+{
+	for (int i = 0; i < m; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			printf("a[%d][%d] = ",i,j);
+			scanf("%d",&x[i][j]);
+		}
+	}
+}
+void inMaTran(int x[100][100],int m, int n)
+{
+	for (int i = 0; i < m; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			printf("%d \t",x[i][j]);
+		}
+		printf("\n");
+	}
+}
+void ChuyenVi(int x[100][100],int m, int n)
+{
+	int y[100][100];
+	for (int i = 0; i < m; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			y[j][i] = x[i][j];
+		}
+	}
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < m; j++)
+		{
+			printf("%d \t",y[i][j]);
+		}
+		printf("\n");
+	}
+}
+int cungKichThuoc(int m1, int n1, int m2, int n2)
+{
+	if (m1 == m2 && n1 == n2) return 1;
+	else return 0;
+}
+void CongMaTran(int a[100][100], int b[100][100], int m, int n)
+{
+	int c[100][100];
+    for(int i = 0; i < m; i++)
+    {
+        for(int j = 0; j < n; j++)
+        {
+            c[i][j] = a[i][j] + b[i][j];
+        }
+    }
+    for (int i = 0; i < m; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			printf("%d \t",c[i][j]);
+		}
+		printf("\n");
+	}
+}
+void NhanSoVoiMaTran(int x[][100],int m, int n,int k)
+{
+	int c[100][100];
+	printf("Nhan %d voi ma tran:\n",k);
+	for (int i = 0; i < m; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			c[i][j] = k*x[i][j];
+		}
+	}
+	for (int i = 0; i < m; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			printf("%d ",c[i][j]);
+		}
+		printf("\n");
+	}
+}
+int main()
+{
+	int a[100][100],b[100][100];
+	int m1,n1,m2,n2,k;
+	printf("Nhap so hang cua ma tran thu nhat:");
+	scanf("%d",&m1);
+	printf("Nhap so cot cua ma tran thu nhat:");
+	scanf("%d",&n1);
+	printf("Nhap ma tran A:\n");
+	nhapMaTran(a,m1,n1);
+	printf("Nhap so hang cua ma tran thu hai:");
+	scanf("%d",&m2);
+	printf("Nhap so cot cua ma tran thu hai:");
+	scanf("%d",&n2);
+	printf("Nhap ma tran B:\n");
+	nhapMaTran(b,m2,n2);
+	printf("Ma tran A la:\n");
+	inMaTran(a,m1,n1);
+	printf("Ma tran B la:\n");
+	inMaTran(b,m2,n2);
+	printf("Ma tran chuyen vi cua ma tran A la:\n");
+	ChuyenVi(a,m1,n1);
+	printf("Ma tran chuyen vi cua ma tran B la:\n");
+	ChuyenVi(b,m2,n2);
+	if(cungKichThuoc(m1,n1,m2,n2))
+	{
+		printf("Hai ma tran cung kich thuoc\n");
+		printf("Matrix A + Matrix B:\n");
+		CongMaTran(a,b,m1,n1);
+	}
+	else 
+	{
+	printf("Hai ma tran khong cung kich thuoc\n");
+	printf("Hai ma tran khong the cong lai voi nhau.\n");
+	}
+	printf("Nhap so k:");
+	scanf("%d",&k);
+	NhanSoVoiMaTran(a,m1,n1,k);
+	NhanSoVoiMaTran(b,m2,n2,k);
+	return 0;
+}
