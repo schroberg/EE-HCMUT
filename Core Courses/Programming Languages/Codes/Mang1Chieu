@@ -1,0 +1,121 @@
+#include <stdio.h>
+void nhapMang(int a[100],int n)
+{
+    printf("Nhap cac phan tu cua mang:\n");
+    for (int i = 0; i < n; i++)
+    {
+        printf("a[%d]: ",i);
+        scanf("%d",&a[i]);
+    }
+}
+void xuatMang(int a[100], int n)
+{
+    printf("Cac phan tu cua mang:\n");
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d ", a[i]);
+    }
+    printf("\n");
+}
+int timMax(int a[100], int n)
+{
+    int max = a[0];
+    printf("Gia tri lon nhat trong mang la:");
+    for (int i = 0; i < n; i++)
+    {
+        if (max < a[i])
+            max = a[i];
+    }
+    return max;
+}
+int timMin(int a[100], int n)
+{
+    int min = a[0];
+    printf("Gia tri nho nhat trong mang la:");
+    for (int i = 0; i < n; i++)
+    {
+        if (min > a[i])
+            min = a[i];
+    }
+    return min;
+}
+int laSNT(int n)
+{
+    if (n < 2) return 0;
+    for (int i = 2; i*i <= n; i++)
+    {
+        if (n%i == 0) return 0;
+    }
+    return 1;
+}
+void inSNT(int a[100], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if(laSNT(a[i]))
+            printf("%d ", a[i]);
+    }
+}
+int laSCP(int n)
+{
+    if (n < 0) return 0;
+    for (int i = 1; i*i <= n; i++)
+    {
+        if (i*i == n) return i;
+    }
+    return 0;
+}
+void inSCP(int a[100], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if(laSCP(a[i]))
+            printf("%d ",a[i]);
+    }
+}
+int laSDX(int n)
+{
+    int x = 0, t = n;
+    while (t > 0)
+    {
+        x = x*10 + t%10;
+        t = t/10;
+    }
+    return (x == n);
+}
+void inSDX(int a[100], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if(laSDX(a[i]))
+            printf("%d ",a[i]);
+    }
+}
+int main()
+{
+    int a[100], n;
+    int Max, Min;
+    do
+    {
+        printf("Nhap so luong phan tu:");
+        scanf("%d",&n);
+        if (n <= 0 || n >= 100)
+            printf("So luong khong hop le, vui long nhap lai!\n");
+    }
+    while (n <= 0 || n >= 100);
+    nhapMang(a,n);
+    xuatMang(a,n);
+    Max = timMax(a,n);
+    printf("%d \n",Max);
+    Min = timMin(a,n);
+    printf("%d \n",Min);
+    printf("Cac gia tri so nguyen to trong mang la:");
+    inSNT(a,n);
+    printf("\n");
+    printf("Cac gia tri so chinh phuong trong mang la:");
+    inSCP(a,n);
+    printf("\n");
+    printf("Cac gia tri so doi xung la:");
+    inSDX(a,n);
+    return 0;
+}
