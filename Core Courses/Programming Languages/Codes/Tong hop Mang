@@ -1,0 +1,469 @@
+#include <stdio.h>
+int laSNT(int n)
+{
+    if (n < 2) return 0;
+    for (int i = 2; i*i <= n; i++)
+    {
+        if (n%i == 0) return 0;
+    }
+    return 1;
+}
+int laSCP(int n)
+{
+    if (n < 0) return 0;
+    for (int i = 1; i*i <= n; i++)
+    {
+        if (i*i == n) return i;
+    }
+    return 0;
+}
+int laSDX(int n)
+{
+    int x = 0, t = n;
+    while (t > 0)
+    {
+        x = x*10 + t%10;
+        t = t/10;
+    }
+    return (x == n);
+}
+void khoitao1D(int x[],int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		x[i] = 0;
+	}
+}
+void khoitao2D(int x[][100],int m, int n)
+{
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            x[i][j] = 0;
+        }
+    }
+}
+void nhapMang1D(int a[],int n)
+{
+    printf("Nhap cac phan tu cua mang:\n");
+    for (int i = 0; i < n; i++)
+    {
+        printf("a[%d]: ",i);
+        scanf("%d",&a[i]);
+    }
+}
+void xuatMang1D(int a[], int n)
+{
+    printf("Cac phan tu cua mang:");
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d ", a[i]);
+    }
+    printf("\n");
+}
+int timMax1D(int a[], int n)
+{
+    int max = a[0];
+    for (int i = 0; i < n; i++)
+    {
+        if (max < a[i])
+            max = a[i];
+    }
+    return max;
+}
+int timMin1D(int a[], int n)
+{
+    int min = a[0];
+    for (int i = 0; i < n; i++)
+    {
+        if (min > a[i])
+            min = a[i];
+    }
+    return min;
+}
+void SNT1D(int a[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if(laSNT(a[i]))
+        {
+			printf("%d ", a[i]);
+        }
+    }
+}
+void SCP1D(int a[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if(laSCP(a[i]))
+            printf("%d ",a[i]);
+    }
+}
+void SDX1D(int a[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if(laSDX(a[i]))
+            printf("%d ",a[i]);
+    }
+}
+void nhapMang2D(int a[][100], int m, int n)
+{
+    printf("Nhap cac phan tu cua mang:\n");
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            printf("a[%d][%d]: ",i,j);
+            scanf("%d",&a[i][j]);
+        }
+    }
+}
+void xuatMang2D(int a[][100], int m, int n)
+{
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            printf("%d \t",a[i][j]);
+        }
+        printf("\n");
+    }
+}
+void timMax1Hang(int a[][100], int m, int n)
+{
+    for (int i = 0; i < m; i++)
+    {
+        int max = a[i][0];
+        for (int j = 1; j < n; j++)
+        {
+            if (max < a[i][j]) 
+                max = a[i][j];
+        }
+        printf("Max cua hang %d la %d\n",i,max);
+    }
+}
+void timMax1Cot(int a[][100], int m, int n)
+{
+    for(int j = 0; j < n; j++)
+    {
+        int max = a[0][j];
+        for (int i = 1; i < m; i++)
+        {
+            if (max < a[i][j])
+                max = a[i][j];
+        }
+        printf("Max cua cot %d la %d\n",j,max);
+    }
+}
+int timMaxMang2D(int a[][100], int m, int n)
+{
+    int max = a[0][0];
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (max < a[i][j])
+            {
+                max = a[i][j];
+            }
+        }
+    }
+    return max;
+}
+void timMin1Hang(int a[][100], int m, int n)
+{
+    for (int i = 0; i < m; i++)
+    {
+        int min = a[i][0];
+        for (int j = 0; j < n; j++)
+        {
+            if (a[i][j] < min)
+                min = a[i][j];
+        }
+        printf("Min cua hang %d la %d\n",i,min);
+    }
+}
+void timMin1Cot(int a[][100], int m, int n)
+{
+    for (int j = 0; j < n; j++)
+    {
+        int min = a[0][j];
+        for (int i = 0; i < m; i++)
+        {
+            if (a[i][j] < min)
+                min = a[i][j];
+        }
+        printf("Min cua cot %d la %d\n",j,min);
+    }
+}
+int timMinMang2D(int a[][100], int m, int n)
+{
+    int min = a[0][0];
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (min > a[i][j])
+            {
+                min = a[i][j];
+            }
+        }
+    }
+    return min;
+}
+void SNT2D(int a[][100], int m, int n)
+{
+    printf("Cac gia tri so nguyen to cua mang:");
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if(laSNT(a[i][j]))
+            {
+                printf("%d ",a[i][j]);
+            }
+        }
+    }
+    printf("\n");
+}
+void SCP2D(int a[][100],int c[][100],int m, int n)
+{
+    printf("Cac gia tri so chinh phuong cua mang la:");
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if(laSCP(a[i][j]))
+            {
+                printf("%d ",a[i][j]);
+            }
+        }
+    }
+    printf("\n");
+}
+void ChuyenVi(int a[][100],int m, int n)
+{
+    int y[100][100];
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            y[j][i] = a[i][j];
+        }
+    }
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            printf("%d \t",y[i][j]);
+        }
+        printf("\n");
+    }
+}
+int cungKichThuoc(int m1,int n1,int m2,int n2)
+{
+	return (m1 == m2 && n1 == n2);
+}
+void CongMaTran(int a[][100], int b[][100], int m, int n)
+{
+    int c[100][100];
+    for(int i = 0; i < m; i++)
+    {
+        for(int j = 0; j < n; j++)
+        {
+            c[i][j] = a[i][j] + b[i][j];
+        }
+    }
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            printf("%d \t",c[i][j]);
+        }
+        printf("\n");
+    }
+}
+void NhanSoVoiMaTran(int a[][100],int m, int n,int k)
+{
+    int c[100][100];
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            c[i][j] = k*a[i][j];
+        }
+    }
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            printf("%d ",c[i][j]);
+        }
+        printf("\n");
+    }
+}
+int DieukienNhan(int m1, int n1, int m2, int n2)
+{
+    return (n1 == m2 || n2 == m1);
+}
+void NhanHaiMaTran(int a[][100], int b[][100], int m1, int n1, int m2, int n2)
+{
+    int C[100][100];
+    if (n1 == m2)
+    {
+        printf("Ma tran A nhan Ma tran B\n");
+        for(int i = 0; i < m1; i++)
+        {
+            for (int j = 0; j < n2; j++)
+            {
+                C[i][j] = 0;
+            }
+        }
+        for (int i = 0; i < m1; i++)
+        {
+            for (int j = 0; j < n2; j++)
+            {
+                for (int k = 0; k < n1; k++)
+                {
+                    C[i][j] += a[i][k] * b[k][j];
+                }
+            }
+        }
+        for (int i = 0; i < m1; i++)
+        {
+            for (int j = 0; j < n2; j++)
+            {
+                printf("%d \t",C[i][j]);
+            }
+            printf("\n");
+        }
+    }
+    if (n2 == m1)
+    {
+        printf("Ma tran B nhan Ma tran A\n");
+        for (int i = 0; i < m2; i++)
+        {
+            for (int j = 0; j < n1; j++)
+            {
+                C[i][j] = 0;
+            }
+        }
+        for (int i = 0; i < m2; i++)
+        {
+            for (int j = 0; j < n1; j++)
+            {
+                for (int k = 0; k < n2; k++)
+                {
+                    C[i][j] += b[i][k] * a[k][j];
+                }
+            }
+        }
+        for (int i = 0; i < m2; i++)
+        {
+            for (int j = 0; j < n1; j++)
+            {
+                printf("%d \t",C[i][j]);
+            }
+            printf("\n");
+        }
+    }
+}
+int main()
+{
+	int choice;
+	printf("Vui long chon 1 trong 3.\n");
+	printf("1. Mang 1 chieu\n");
+	printf("2. Mang 2 chieu\n");
+	printf("3. Phep toan 2 ma tran\n");
+	printf("Vui long nhap lua chon:");
+	scanf("%d",&choice);
+	switch(choice)
+	{
+		case(1): choice = 0; printf("Ban da lua chon Mang 1 chieu\n"); break;
+		case(2): choice = 1; printf("Ban da lua chon Mang 2 chieu\n"); break;
+		case(3): choice = 2; printf("Ban da lua chon thuc hien phep tinh tren 2 ma tran\n"); break;
+		default: printf("Lua chon khong hop le!");
+	}
+	if (choice == 0)
+	{
+		int a[100],n;
+		int b[100];
+		khoitao1D(b,n);
+		printf("Nhap so luong phan tu cua Mang 1 chieu:");
+		scanf("%d",&n);
+		nhapMang1D(a,n);
+		xuatMang1D(a,n);
+		printf("Gia tri lon nhat cua Mang 1 chieu nay la:%d\n",timMax1D(a,n));
+		printf("Gia tri nho nhat cua Mang 1 chieu nay la:%d\n",timMin1D(a,n));
+		printf("Cac so nguyen to cua Mang 1 chieu:");
+		SNT1D(a,n);
+		printf("\n");
+		printf("Cac so chinh phuong cua Mang 1 chieu:");
+		SCP1D(a,n);
+		printf("\n");
+		printf("Cac so doi xung cua Mang 1 chieu:");
+		SDX1D(a,n);
+		printf("\n");
+	}
+	if (choice == 1)
+	{
+		int a[100][100], b[100][100], m,n;
+		printf("Nhap so hang cua mang:");
+		scanf("%d",&m);
+		printf("Nhap so cot cua mang:");
+		scanf("%d",&n);
+		nhapMang2D(a,m,n);
+		printf("Mang A duoc khoi tao:\n");
+		xuatMang2D(a,m,n);
+		SNT2D(a,m,n);
+		printf("Ma tran chuyen vi cua Mang A la:\n");
+		ChuyenVi(a,m,n);
+	}
+	if (choice == 2)
+	{
+		int a[100][100], b[100][100];
+		int m1,n1,m2,n2,k;
+		printf("Nhap so hang cua ma tran thu nhat:");
+    	scanf("%d",&m1);
+    	printf("Nhap so cot cua ma tran thu nhat:");
+    	scanf("%d",&n1);
+    	printf("Nhap ma tran A:\n");
+    	nhapMang2D(a,m1,n1);
+    	printf("Nhap so hang cua ma tran thu hai:");
+    	scanf("%d",&m2);
+    	printf("Nhap so cot cua ma tran thu hai:");
+    	scanf("%d",&n2);
+    	printf("Nhap ma tran B:\n");
+    	nhapMang2D(b,m2,n2);
+    	printf("Ma tran A:\n");
+    	xuatMang2D(a,m1,n1);
+    	printf("Ma tran B:\n");
+    	xuatMang2D(b,m2,n2);
+    	if(cungKichThuoc(m1,n1,m2,n2))
+    	{
+        	printf("Hai ma tran cung kich thuoc\n");
+        	printf("Ma tran A + Ma tran B:\n");
+        	CongMaTran(a,b,m1,n1);
+    	}
+    	else 
+    	{
+    		printf("Hai ma tran khong cung kich thuoc\n");
+    		printf("Hai ma tran khong the cong lai voi nhau.\n");
+    	}
+    	printf("Nhap he so nhan k:");
+	    scanf("%d",&k);
+	    printf("Nhan %d voi ma tran A:\n",k);
+	    NhanSoVoiMaTran(a,m1,n1,k);
+	    printf("Nhan %d voi ma tran B:\n",k);
+	    NhanSoVoiMaTran(b,m2,n2,k);
+	    if(DieukienNhan(m1,n1,m2,n2))
+    	{
+        	printf("Hai ma tran thoa dieu kien nhan\n");
+        	NhanHaiMaTran(a,b,m1,n1,m2,n2);
+    	}
+    	else printf("Hai ma tran khong thoa dieu kien nhan");
+	}
+	return 0;
+}
