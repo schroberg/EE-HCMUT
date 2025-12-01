@@ -1,0 +1,154 @@
+#include <stdio.h>
+#include <string.h>
+typedef struct
+{
+	float toan;
+	float li;
+	float hoa;
+} Diem;
+typedef struct
+{
+	char mssv[8];
+	char hoten[50];
+	Diem diem;
+} SinhVien;
+int docFile(FILE *fin, SinhVien sv[], int *n)
+{
+	fscanf(fin,"%d",n);
+	for(int i = 0; i < *n; i++)
+	{
+		fscanf(fin,"%s",sv[i].mssv);
+		fscanf(fin," %[^\n]",sv[i].hoten);
+		fscanf(fin,"%f",&sv[i].diem.toan);
+		fscanf(fin,"%f",&sv[i].diem.li);
+		fscanf(fin,"%f",&sv[i].diem.hoa);
+	}
+}
+void inDanhSach(SinhVien sv[], int n)
+{
+	printf("Danh sach sinh vien:\n");
+	printf("====================\n");
+	for(int i = 0; i < n; i++)
+	{
+		printf("MSSV: %s\n",sv[i].mssv);
+		printf("Ho va ten: %s\n",sv[i].hoten);
+		printf("Diem Toan: %.2f\n",sv[i].diem.toan);
+		printf("Diem Li: %.2f\n",sv[i].diem.li);
+		printf("Diem Hoa: %.2f\n",sv[i].diem.hoa);
+		printf("------------------------\n");
+	}
+}
+int ToanCaoNhat(FILE *fout, SinhVien sv[], int n)
+{
+	float max_toan = sv[0].diem.toan;
+	for (int i = 0; i < n; i++)
+	{
+		if (sv[i].diem.toan > max_toan)
+		{
+			max_toan = sv[i].diem.toan;
+		}
+	}
+	fprintf(fout,"Cac sinh vien co diem Toan cao nhat (%.2f)\n",max_toan);
+	fprintf(fout,"===========================================================\n");
+	int count = 0;
+	for (int i = 0; i < n; i++)
+	{
+		if (sv[i].diem.toan == max_toan)
+		{
+			count++;
+			fprintf(fout,"MSSV: %s\n",sv[i].mssv);
+			fprintf(fout,"Ho va ten: %s\n",sv[i].hoten);
+			fprintf(fout,"Diem Toan: %.2f\n",sv[i].diem.toan);
+			fprintf(fout,"-----------------------------------\n");
+
+		}
+	}
+}
+int LiThapNhat(FILE *fout, SinhVien sv[],int n)
+{
+	float min_li = sv[0].diem.li;
+	for (int i = 0; i < n; i++)
+	{
+		if (sv[i].diem.li < min_li)
+		{
+			min_li = sv[i].diem.li;
+		}
+	}
+	fprintf(fout,"Cac sinh vien co diem Li thap nhat (%.2f)\n",min_li);
+	fprintf(fout,"===========================================================\n");
+	int count = 0;
+	for (int i = 0; i < n; i++)
+	{
+		if (sv[i].diem.li == min_li)
+		{
+			count++;
+			fprintf(fout,"MSSV: %s\n",sv[i].mssv);
+			fprintf(fout,"Ho va ten: %s\n",sv[i].hoten);
+			fprintf(fout,"Diem Li: %.2f\n",sv[i].diem.li);
+			fprintf(fout,"-----------------------------------\n");
+		}
+	}
+}
+float tinhTongDiem(Diem diem)
+{
+    return diem.toan + diem.li + diem.hoa;
+}
+void inSinhVienTongDiemCaoNhat(FILE *fout, SinhVien sv[], int n)
+{
+    float maxTong = tinhTongDiem(sv[0].diem);
+    for (int i = 0; i < n; i++)
+    {
+        float tongHienTai = tinhTongDiem(sv[i].diem);
+        if (tongHienTai > maxTong)
+        {
+            maxTong = tongHienTai;
+        }
+    }
+    fprintf(fout, "\n=== SINH VIEN CO TONG DIEM CAO NHAT (%.1f) ===\n", maxTong);
+    int count = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (tinhTongDiem(sv[i].diem) == maxTong)
+        {
+            count++;
+            fprintf(fout, "\nSinh vien thu %d:\n", count);
+            fprintf(fout, "MSSV: %s\n", sv[i].mssv);
+            fprintf(fout, "Ho ten: %s\n", sv[i].hoten);
+            fprintf(fout, "Diem Toan: %.1f\n", sv[i].diem.toan);
+            fprintf(fout, "Diem Li: %.1f\n", sv[i].diem.li);
+            fprintf(fout, "Diem Hoa: %.1f\n", sv[i].diem.hoa);
+            fprintf(fout, "Tong diem: %.1f\n", tinhTongDiem(sv[i].diem));
+            fprintf(fout, "------------------------\n");
+        }
+    }
+    fprintf(fout, "\nTong cong: %d sinh vien\n", count);
+}
+int main()
+{
+	SinhVien sv[100];
+	int n;
+	FILE *fin = fopen("dssv.txt","r");
+	if (fin == NULL)
+	{
+		printf("Khong phat hien File!");
+	}
+	else
+	{
+		docFile(fin,sv,&n);
+		inDanhSach(sv,n);
+		fclose(fin);
+		FILE *fout = fopen("ouputSV.txt","w");
+		if (fout == NULL)
+		{
+			printf("Khong the tao File!");
+		}
+		else
+		{
+			ToanCaoNhat(fout,sv,n);
+			LiThapNhat(fout,sv,n);
+			inSinhVienTongDiemCaoNhat(fout,sv,n);
+			fclose(fout);
+		}
+	}
+	return 1;
+}
